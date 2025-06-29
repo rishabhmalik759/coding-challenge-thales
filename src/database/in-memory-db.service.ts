@@ -1,24 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
-import { UserGroup, UserRole, User } from 'src/users/entities/user.entity';
-import { USERS_SEED } from '../data/user.seed';
-import { UserFactory } from 'src/users/factories/user.factory';
+import {
+  UserGroup,
+  UserRole,
+  User,
+  UserRoleDefinition,
+} from '../users/entities/user.entity';
+import { USERS_SEED } from './data/user.seed';
+import { UserFactory } from '../users/factories/user.factory';
+import { ROLES_SEED } from './data/role.seed';
 
 @Injectable()
 export class InMemoryDbService {
-  public readonly roles: UserRole[] = [
-    UserRole.ADMIN,
-    UserRole.PERSONAL,
-    UserRole.VIEWER,
-  ];
   public readonly groups: UserGroup[] = [UserGroup.GROUP_1, UserGroup.GROUP_2];
+  public readonly roleDefinitions: UserRoleDefinition[] = ROLES_SEED;
 
   public readonly users: User[] = [...USERS_SEED];
 
   private getNextId(): number {
     const maxId = Math.max(...this.users.map((user) => user.id), 0);
     return maxId + 1;
+  }
+
+  findRoleDefinitionByCode(code: UserRole): UserRoleDefinition | undefined {
+    return this.roleDefinitions.find((role) => role.code === code);
   }
 
   findAllUsers(): User[] {
