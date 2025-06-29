@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InMemoryDbService } from 'src/database/in-memory-db/in-memory-db.service';
+import { InMemoryDbService } from '../database/in-memory-db.service';
 import { User, UserRole } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
