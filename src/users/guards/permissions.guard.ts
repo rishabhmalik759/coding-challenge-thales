@@ -27,7 +27,7 @@ export class PermissionsGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest();
-    const userIdHeader = request.headers['Authorization'];
+    const userIdHeader = request.headers['authorization'];
 
     if (!userIdHeader) {
       throw new ForbiddenException('Authorization header is missing.');
